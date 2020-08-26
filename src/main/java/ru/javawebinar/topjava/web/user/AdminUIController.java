@@ -36,6 +36,7 @@ public class AdminUIController extends AbstractUserController {
     }
 
     @PostMapping
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@Valid UserTo userTo, BindingResult result) {
         if (result.hasErrors()) {
             // TODO change to exception handler
