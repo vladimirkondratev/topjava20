@@ -1,15 +1,21 @@
 server:
   servlet:
     context-path: /topjava/
+  ssl:
+    key-store-type: PKCS12
+    key-store: classpath:keystore/topjava.jks
+    key-alias: topjava
+    key-store-password: password
+  port: 8443
 
 spring:
   profiles:
     active: datajpa
     #active: jpa
     #active: jdbc
-#---
-#spring:
-#  profiles: postgresql
+  #---
+  #spring:
+  #  profiles: postgresql
   #PostgreSQL
 
   datasource:

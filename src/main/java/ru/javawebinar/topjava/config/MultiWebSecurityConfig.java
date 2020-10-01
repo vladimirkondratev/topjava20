@@ -16,8 +16,7 @@ import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.service.UserService;
 
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class MultiWebSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
+public class MultiWebSecurityConfig {
 
     @Autowired
     private UserService userService;
@@ -37,7 +36,8 @@ public class MultiWebSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
     public static class RestSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.sessionManagement()
+            http/*.requiresChannel().anyRequest().requiresSecure().and()*/
+                    .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                     .and().antMatcher("/rest/**")
                     .authorizeRequests()
@@ -61,7 +61,8 @@ public class MultiWebSecurityConfig /*extends WebSecurityConfigurerAdapter*/ {
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            http.authorizeRequests()
+            http/*.requiresChannel().anyRequest().requiresSecure().and()*/
+                    .authorizeRequests()
                     .antMatchers("/admin/**").hasAuthority(Role.ADMIN.getAuthority())
                     .antMatchers("/profile/register").anonymous()
                     .antMatchers("/login").permitAll()
